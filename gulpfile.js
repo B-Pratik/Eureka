@@ -10,7 +10,6 @@ var opener = require('opener');
 var del = require('del');
 var runSequence = require('run-sequence');
 var webpack = require('webpack');
-var watch = require('gulp-watch');
 
 var URL = {host: argv.host || 'localhost', port: argv.port || 3000};
 
@@ -34,13 +33,6 @@ gulp.task('complete', function (cb) {
         'build',
         cb
     );
-});
-
-gulp.task('watch', function () {
-    return watch('./source/*', function () {
-        gulp.src('*')
-            .pipe(gulp.dest('build'));
-    });
 });
 
 gulp.task('server', ['complete'], function () {
