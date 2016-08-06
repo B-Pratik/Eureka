@@ -1,12 +1,27 @@
 #map {
   margin: 0;
   padding: 0;
-  height: 800px;
+  height: 55%;
+
+    @media screen and (min-height: 650px) {
+  		height: 68%;
+    }
 }
 
 .map-container {
+height: 100%;
+
   .info {
-    padding: 20px;
+  	height: 40%;
+  	padding: 20px;
+
+  	@media screen and (min-height: 650px) {
+  		height: 28%;
+    }
+
+    h5 {
+    	color: orange;
+    }
   }
 
   small{

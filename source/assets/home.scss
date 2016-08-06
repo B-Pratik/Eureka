@@ -1,6 +1,6 @@
 html {
   min-height: 100%;
-  height: auto;
+  height: 100%;
 }
 
 body {
@@ -13,6 +13,7 @@ body {
   font-size: 1rem;
   line-height: 160%;
   *zoom: 1;
+  height: 100%;
 
   a {
     color: #ffffff;
@@ -26,21 +27,27 @@ body {
 
 }
 
+.fixed-height{
+  height: 100%;
+  width: 100%;
+}
+
 .text-center {
   text-align: center;
 }
 
 .home-page {
   .h1 {
-    margin-bottom: 30px;
+    @media screen and (max-width: 480px) {
+        font-size: 18px;
+    }
   }
 
   .search-box {
     background: #063642;
     color: #EEE8D5;
-    width: 90%;
-    min-width: 320px;
-    max-width: 500px;
+    width: 45%;
+    min-width: 230px;
     margin: 0 auto;
     margin-top: 30px;
     border-radius: 20px;
@@ -72,7 +79,7 @@ body {
     }
   }
 
-  .near-me{
+  .top-mar{
     margin-top: 10px;
   }
 }

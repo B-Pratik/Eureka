@@ -4,7 +4,7 @@
 
 import loadGoogleMapsAPI from 'load-google-maps-api';
 
-export default function ($scope, $http, $rootScope) {
+export default function ($scope, $http, $rootScope, $state) {
     'ngInject';
 
     var map;
@@ -16,6 +16,17 @@ export default function ($scope, $http, $rootScope) {
         $scope.toShoworNot = true;
         $scope.$apply(function () {
             $scope.marker = data;
+        });
+    }
+
+    function goBack(msg){
+        if(window.alert){
+            var display = msg || 'looks we have an error!,please try later';
+            alert(display);
+        }
+        
+        setTimeout(function(){
+            $state.go('home');
         });
     }
 
@@ -38,7 +49,6 @@ export default function ($scope, $http, $rootScope) {
         });
 
         marker.addListener('click', function (event) {
-            console.log('click', feature.data, event);
             showDetails(feature.data);
         });
     }
@@ -46,7 +56,7 @@ export default function ($scope, $http, $rootScope) {
     function loadMap(cords) {
         map = new window.mapObj.Map(document.getElementById('map'), {
             zoom: 16,
-            center: new window.mapObj.LatLng(cords.lat, cords.lon),
+            center: new window.mapObj.LatLng(cords.lat, cords.lon)
         });
     }
 
@@ -58,19 +68,23 @@ export default function ($scope, $http, $rootScope) {
         });
     }
 
-    $http.post('http://localhost:3000/getdata', $rootScope.data).then(function (data) {
-        loadMap(data.data[0].cords);
-        for (var i = 0; i < data.data.length; i++) {
-            var business = data.data[i];
+    $http.post('/getdata', $rootScope.data).then(function (resp) {
+        if(resp.data instanceof Array && resp.data.length > 0){
+            loadMap(resp.data[0].cords);
+            for (var i = 0; i < resp.data.length; i++) {
+                var business = resp.data[i];
 
-            var _marker = {
-                position: new window.mapObj.LatLng(business.cords.lat, business.cords.lon),
-                type: 'library',
-                title: business.name,
-                data: business
-            };
+                var _marker = {
+                    position: new window.mapObj.LatLng(business.cords.lat, business.cords.lon),
+                    type: 'library',
+                    title: business.name,
+                    data: business
+                };
 
-            addMarker(_marker);
+                addMarker(_marker);
+            }
+        }else{
+            goBack('No Results found');
         }
     }, function (error) {
         console.error(error);

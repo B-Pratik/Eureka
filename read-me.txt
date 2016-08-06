@@ -1,0 +1,23 @@
+Who-What-Where
+-----------------------------------------
+A business search application built on the top of yelp,foursquare and google maps api.
+
+*Requirements
+	-Node.js with NPM.
+	-Internet Connection.
+
+*How to install
+	-open source folder with node.js command promt(windows) or terminal (mac/linux) and run command 'npm install'
+		to install all the dependeicies.
+
+*How to start
+	-run command 'gulp' with optional port value (--port 9000,default is 4000) to satrt the compilation and build the application.
+	-once compilation is done application will start in browser.
+
+*How to use
+	-enter your query to search for business and location where you want to search;
+	-you can use nearme feature to search near by to you.(you need modern browser for this)
+	-you will get results pinned on map,on clicking on them you will get details of the business.
+
+*Platforms
+	-Application is designed to be responsive,supports mobile devices also.

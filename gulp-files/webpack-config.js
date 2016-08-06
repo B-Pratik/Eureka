@@ -16,6 +16,8 @@ module.exports = {
         vendor: [
             'bootstrap/dist/css/bootstrap.min.css',
 
+            'jquery',
+
             'angular',
             'angular-ui-router',
             'angular-loading-bar'
@@ -77,6 +79,10 @@ module.exports = {
             'process.env': {
                 NODE_ENV: JSON.stringify('production')
             }
+        }),
+        new webpack.ProvidePlugin({
+          Promise: 'imports?this=>global!exports?global.Promise!es6-promise',
+          fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
         }),
         new webpack.ProvidePlugin({
             jQuery: 'jquery',

@@ -7,6 +7,8 @@ export default function ($scope, $rootScope, $state) {
 
     $scope.query = null;
     $scope.location = null;
+    /*check for geolocation service*/
+    $scope.hasLocation = navigator.geolocation;
 
     function onPositionUpdate(position) {
         var lati = position.coords.latitude;
@@ -15,17 +17,22 @@ export default function ($scope, $rootScope, $state) {
         $scope.location = '' + lati + ', ' + longi;
 
         if($scope.query){
-            sendData(true);
+            if($scope.query.toString().trim().length > 0){
+                sendData(true);
+            }
+        }
+    }
+
+    function onErrorLocation(error){
+        if(window.alert){
+            alert('Unable to get location data,enter location manually');
         }
     }
 
     $scope.nearme = function () {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(onPositionUpdate);
-        }
-        else {
-            alert("navigator.geolocation is not available");
-        }
+        navigator.geolocation.getCurrentPosition(onPositionUpdate,
+                                         onErrorLocation,
+                                         {enableHighAccuracy:true, timeout:10000, maximumAge:600000});
     }
 
     $scope.search = function () {
