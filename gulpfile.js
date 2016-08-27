@@ -35,11 +35,9 @@ gulp.task('complete', function (cb) {
     );
 });
 
-gulp.task('server', ['complete'], function () {
+gulp.task('default', ['complete'], function () {
     var app = require('./gulp-files/server.js');
     app.listen(URL.port, function () {
         opener('http://' + URL.host + ':' + URL.port);
     });
 });
-
-gulp.task('default', ['complete', 'server']);

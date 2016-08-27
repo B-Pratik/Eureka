@@ -4,6 +4,8 @@
 
 import loadGoogleMapsAPI from 'load-google-maps-api';
 
+var markerImage = require('../../../assets/images/marker.png');
+
 export default function ($scope, $http, $rootScope, $state) {
     'ngInject';
 
@@ -33,6 +35,7 @@ export default function ($scope, $http, $rootScope, $state) {
     function addMarker(feature) {
         var marker = new window.mapObj.Marker({
             position: feature.position,
+            icon: markerImage,
             map: map
         });
 
@@ -76,7 +79,6 @@ export default function ($scope, $http, $rootScope, $state) {
 
                 var _marker = {
                     position: new window.mapObj.LatLng(business.cords.lat, business.cords.lon),
-                    type: 'library',
                     title: business.name,
                     data: business
                 };

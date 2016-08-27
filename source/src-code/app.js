@@ -3,6 +3,7 @@
  */
 
 import '../assets/main.scss';
+import 'babel-polyfill';//pollyfill for latest features
 
 import defaultRoute from './route/routes';
 
