@@ -1,8 +1,3 @@
-#loading-bar {
-  pointer-events: none;
-  transition: 350ms linear all;
-}
-
 #loading-bar.ng-enter,
 #loading-bar.ng-leave.ng-leave-active {
   opacity: 0;
@@ -14,6 +9,9 @@
 }
 
 #loading-bar {
+  pointer-events: none;
+  transition: 350ms linear all;
+
   .bar {
     transition: width 350ms;
 

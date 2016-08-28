@@ -23,6 +23,7 @@
   "homepage": "https://github.com/B-Pratik/WhoWhatWhere#readme",
   "dependencies": {
     "angular": "^1.5.7",
+    "angular-animate": "^1.5.8",
     "angular-loading-bar": "^0.9.0",
     "angular-strap": "^2.3.9",
     "angular-ui-router": "^0.3.1",

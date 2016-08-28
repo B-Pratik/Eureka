@@ -1,5 +1,5 @@
 html {
-  min-height: 100%;
+  max-height: 100%;
   height: 100%;
 }
 
@@ -9,9 +9,8 @@ body {
   background-image: -webkit-linear-gradient(top, #023E54, #10AAC0);
   background-image: -moz-linear-gradient(top, #023E54, #10AAC0);
   background-image: -o-linear-gradient(top, #023E54, #10AAC0);
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'aventura', 'Droid Sans', sans-serif;
   font-size: 1rem;
-  line-height: 160%;
   *zoom: 1;
   height: 100%;
 
@@ -36,10 +35,19 @@ body {
   text-align: center;
 }
 
+.btn-primary {
+  color: #e1f111;
+
+  &:hover {
+   color: #17c317;
+ }
+}
+
 .home-page {
+
   .h1 {
     @media screen and (max-width: 480px) {
-        font-size: 18px;
+      font-size: 18px;
     }
   }
 
@@ -55,7 +63,8 @@ body {
     z-index: 20;
 
     h1 {
-      color: #EEE8D5;
+      font-family: 'cookie', 'Droid Sans', sans-serif;
+      color: #f7a1d8;
     }
 
     input {
