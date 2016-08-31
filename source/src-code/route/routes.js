@@ -9,20 +9,20 @@ import resultControl from '../modules/result/controller';
 import resultView from '../modules/result/view.html';
 
 export default function ($stateProvider, $urlRouterProvider) {
-    'ngInject';
+	'ngInject';
 
-    $urlRouterProvider.otherwise('/home');
+	$urlRouterProvider.otherwise('/home');
 
-    $stateProvider
-        .state('home', {
-            url: '/home',
-            templateUrl: homeView,
-            controller: homeControl,
-        })
-        .state('results', {
-            url: '/business',
-            templateUrl: resultView,
-            controller: resultControl,
-        });
+	$stateProvider
+		.state('home', {
+			url        : '/home',
+			templateUrl: homeView,
+			controller : homeControl,
+		})
+		.state('results', {
+			url        : '/business',
+			templateUrl: resultView,
+			controller : resultControl,
+		});
 
 }

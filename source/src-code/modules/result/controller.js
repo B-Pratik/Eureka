@@ -7,95 +7,95 @@ import loadGoogleMapsAPI from 'load-google-maps-api';
 var markerImage = require('../../../assets/images/marker.png');
 
 export default function ($scope, $http, $rootScope, $state) {
-    'ngInject';
+	'ngInject';
 
-    var map;
-    var isMapLoaded = false;
-    $scope.toShoworNot = false;
-    $scope.markers = [];
+	var map;
+	var isMapLoaded    = false;
+	$scope.toShoworNot = false;
+	$scope.markers     = [];
 
-    function showDetails(data) {
-        $scope.toShoworNot = true;
-        $scope.$apply(function () {
-            $scope.marker = data;
-        });
-    }
+	function showDetails(data) {
+		$scope.toShoworNot = true;
+		$scope.$apply(function () {
+			$scope.marker = data;
+		});
+	}
 
-    function goBack(msg){
-        if(window.alert){
-            var display = msg || 'looks we have an error!,please try later';
-            alert(display);
-        }
-        
-        setTimeout(function(){
-            $state.go('home');
-        });
-    }
+	function goBack(msg) {
+		if (window.alert) {
+			var display = msg || 'looks we have an error!,please try later';
+			alert(display);
+		}
 
-    function addMarker(feature) {
-        var marker = new window.mapObj.Marker({
-            position: feature.position,
-            icon: markerImage,
-            map: map
-        });
+		setTimeout(function () {
+			$state.go('home');
+		});
+	}
 
-        var infowindow = new window.mapObj.InfoWindow({
-            content: feature.title
-        });
+	function addMarker(feature) {
+		var marker = new window.mapObj.Marker({
+			position: feature.position,
+			icon    : markerImage,
+			map     : map
+		});
 
-        marker.addListener('mouseover', function () {
-            infowindow.open(map, marker);
-        });
+		var infowindow = new window.mapObj.InfoWindow({
+			content: feature.title
+		});
 
-        marker.addListener('mouseout', function () {
-            infowindow.close();
-        });
+		marker.addListener('mouseover', function () {
+			infowindow.open(map, marker);
+		});
 
-        marker.addListener('click', function (event) {
-            showDetails(feature.data);
-        });
-    }
+		marker.addListener('mouseout', function () {
+			infowindow.close();
+		});
 
-    function loadMap(cords) {
-        map = new window.mapObj.Map(document.getElementById('map'), {
-            zoom: 16,
-            center: new window.mapObj.LatLng(cords.lat, cords.lon)
-        });
-    }
+		marker.addListener('click', function (event) {
+			showDetails(feature.data);
+		});
+	}
 
-    function loadGoogle() {
-        loadGoogleMapsAPI({key: 'AIzaSyAUhIqtIVo154vh0lg0dFIHh-h5MBjFgUE'}).then(function (Map) {
-            window.mapObj = Map;
-        }).catch(function (error) {
-            console.error(error);
-        });
-    }
+	function loadMap(cords) {
+		map = new window.mapObj.Map(document.getElementById('map'), {
+			zoom  : 16,
+			center: new window.mapObj.LatLng(cords.lat, cords.lon)
+		});
+	}
 
-    $http.post('/getdata', $rootScope.data).then(function (resp) {
-        if(resp.data instanceof Array && resp.data.length > 0){
-            loadMap(resp.data[0].cords);
-            for (var i = 0; i < resp.data.length; i++) {
-                var business = resp.data[i];
+	function loadGoogle() {
+		loadGoogleMapsAPI({key: 'AIzaSyAUhIqtIVo154vh0lg0dFIHh-h5MBjFgUE'}).then(function (Map) {
+			window.mapObj = Map;
+		}).catch(function (error) {
+			console.error(error);
+		});
+	}
 
-                var _marker = {
-                    position: new window.mapObj.LatLng(business.cords.lat, business.cords.lon),
-                    title: business.name,
-                    data: business
-                };
+	$http.post('/getdata', $rootScope.data).then(function (resp) {
+		if (resp.data instanceof Array && resp.data.length > 0) {
+			loadMap(resp.data[0].cords);
+			for (var i = 0; i < resp.data.length; i++) {
+				var business = resp.data[i];
 
-                addMarker(_marker);
-            }
-        }else{
-            goBack('No Results found');
-        }
-    }, function (error) {
-        console.error(error);
-    });
+				var _marker = {
+					position: new window.mapObj.LatLng(business.cords.lat, business.cords.lon),
+					title   : business.name,
+					data    : business
+				};
 
-    if (window.mapObj) {
-        isMapLoaded = true;
-    } else {
-        loadGoogle();
-    }
+				addMarker(_marker);
+			}
+		} else {
+			goBack('No Results found');
+		}
+	}, function (error) {
+		console.error(error);
+	});
+
+	if (window.mapObj) {
+		isMapLoaded = true;
+	} else {
+		loadGoogle();
+	}
 
 }
