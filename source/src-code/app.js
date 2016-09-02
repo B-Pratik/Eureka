@@ -5,7 +5,10 @@
 import '../assets/index.scss';	//style sheet
 import 'babel-polyfill';		//pollyfill for latest features
 
-import defaultRoute from './route/routes';
+import appController from './controller/app-controller';
 
-angular.module('WhoWhatWhere', ['ui.router', 'angular-loading-bar', 'ngAnimate'])
-	.config(defaultRoute);
+//import defaultRoute from './route/routes';
+
+angular.module('WhoWhatWhere', [/*'ui.router', */'angular-loading-bar'/*, 'ngAnimate'*/])
+	.controller('appController', appController);
+//.config(defaultRoute);
