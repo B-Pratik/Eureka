@@ -17,9 +17,7 @@ module.exports = {
 			'bootstrap/dist/css/bootstrap.min.css',
 
 			'angular',
-			'angular-ui-router',
 			'angular-loading-bar',
-			'angular-animate'
 		]
 	},
 	output : {
