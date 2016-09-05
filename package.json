@@ -58,6 +58,7 @@
     "resolve-url-loader": "^1.4.4",
     "run-sequence": "^1.2.1",
     "sass-loader": "^4.0.0",
+    "serve-favicon": "^2.3.0",
     "serve-static": "^1.11.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",

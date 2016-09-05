@@ -7,8 +7,5 @@ import 'babel-polyfill';		//pollyfill for latest features
 
 import appController from './controller/app-controller';
 
-//import defaultRoute from './route/routes';
-
-angular.module('WhoWhatWhere', [/*'ui.router', */'angular-loading-bar'/*, 'ngAnimate'*/])
+angular.module('WhoWhatWhere', ['angular-loading-bar'])
 	.controller('appController', appController);
-//.config(defaultRoute);

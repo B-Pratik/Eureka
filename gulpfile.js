@@ -24,7 +24,7 @@ gulp.task('build', function (cb) {
 });
 
 gulp.task('clean', function () {
-	return del.sync(['!./build', '!./build/favicon.ico', './build/**']);
+	return del.sync(['./build/**', '!./build', '!./build/favicon.ico']);
 });
 
 gulp.task('complete', function (cb) {

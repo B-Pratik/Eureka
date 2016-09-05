@@ -12,9 +12,11 @@ var Dodge       = require('dodge');
 var merge      = require('./merge-results');
 var fourParse  = require('./four-square-response-parse');
 var bodyParser = require('body-parser');
+var favicon = require('serve-favicon');
 
 var app = express();
 app.use(serveStatic(__dirname + '/../build'));
+app.use(favicon(__dirname + '/../build/favicon.ico'));
 app.use(bodyParser.json());
 
 /*Yelp middleware*/

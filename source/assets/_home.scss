@@ -1,5 +1,4 @@
 #map-canvas {
-	background-color: red;
 	height: 100%;
 
 	@media (min-width: 100px) and (max-width: 768px){
@@ -8,10 +7,55 @@
 }
 
 .search-list {
-	background-color: blue;
 	height: 100%;
 
 	@media (min-width: 100px) and (max-width: 768px){
 		height: 45%;		
 	}
+}
+
+.search-bar {
+	background-color: #ffffff;
+	position: absolute;
+	z-index: 3;
+	height: 35px;
+	padding-bottom: 1px;
+	width: 100%;
+	clear: both;
+	box-shadow: 0 0 10px 0 rgba( 0, 0, 0, 0.5 );
+	background: rgba(255,255,255,0.4);
+	overflow: hidden;
+
+	.show-item {
+		margin: 5px 0 5px 0;
+		display: none;
+	}
+
+	.search-text {
+		font-size: 25px;
+		text-align: left;
+		color: #eee8d5;
+	}
+
+	&:hover {
+		height: auto;
+		overflow: auto;
+	}
+
+	.btn-primary {
+		color: #e1f111;
+
+		&:hover {
+			color: #17c317;
+		}
+	}
+}
+
+.back-layer {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	filter: blur(10px);
+	opacity: 0.8;
 }
