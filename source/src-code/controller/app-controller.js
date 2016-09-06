@@ -2,118 +2,126 @@
  * Created by Praitk on 02-09-2016.
  */
 
-import loadGoogleMapsAPI from 'load-google-maps-api';
+ import loadGoogleMapsAPI from 'load-google-maps-api';
 
-var markerImage = require('../../assets/images/marker.png');
+ var markerImage = require('../../assets/images/marker.png');
 
-export default function ($scope, $http) {
-	'ngInject';
+ export default function ($scope, $http, $timeout) {
+ 	'ngInject';
 
-	var GoogleMap, mapView;
+ 	var GoogleMap, mapView;
 
-	var markers = [];
+ 	var markers = [];
 
-	function initializeMap() {
-		mapView = new GoogleMap.Map(document.getElementById('map-canvas'), {
-			center           : {lat: 0, lng: 0},
-			zoom             : 15,
-			mapTypeId        : GoogleMap.MapTypeId.ROADMAP,
-			styles           : [{
-				featureType: 'poi.business',
-				elementType: 'labels',
-				stylers    : [
-					{visibility: 'off'}
-				]
-			}],
-			zoomControl      : true,
-			scaleControl     : true,
-			streetViewControl: false,
-			mapTypeControl   : false
-		});
-	}
+ 	$scope.results = [];
 
-	function getData(query, cb) {
-		$http.post('/getdata', query).then(function (resp) {
-			if (resp.data instanceof Array && resp.data.length > 0) {
-				return cb(null, resp.data);
-			} else {
-				return cb(true);
-			}
-		}, function (error) {
-			console.error(error);
-			return cb(true);
-		});
-	}
+ 	function initializeMap() {
+ 		mapView = new GoogleMap.Map(document.getElementById('map-canvas'), {
+ 			center           : {lat: 0, lng: 0},
+ 			zoom             : 15,
+ 			mapTypeId        : GoogleMap.MapTypeId.ROADMAP,
+ 			styles           : [{
+ 				featureType: 'poi.business',
+ 				elementType: 'labels',
+ 				stylers    : [
+ 				{visibility: 'off'}
+ 				]
+ 			}],
+ 			zoomControl      : true,
+ 			scaleControl     : true,
+ 			streetViewControl: false,
+ 			mapTypeControl   : false
+ 		});
+ 	}
 
-	function setMapOnAll(map) {
-		for (var i = 0; i < markers.length; i++) {
-			markers[i].setMap(map);
-		}
-	}
+ 	function getData(query, cb) {
+ 		$http.post('/getdata', query).then(function (resp) {
+ 			if (resp.data instanceof Array && resp.data.length > 0) {
+ 				return cb(null, resp.data);
+ 			} else {
+ 				return cb(true);
+ 			}
+ 		}, function (error) {
+ 			console.error(error);
+ 			return cb(true);
+ 		});
+ 	}
 
-	function toggleBounce(marker) {
-		if (marker.getAnimation() !== null) {
-			marker.setAnimation(null);
-			if (marker.timeout) {
-				clearTimeout(marker.timeout);
-			}
-		} else {
-			marker.setAnimation(GoogleMap.Animation.BOUNCE);
-			marker.timeout = setTimeout(function () {
-				marker.setAnimation(null);
-			}, 3000);
-		}
-	}
+ 	function setMapOnAll(map) {
+ 		for (var i = 0; i < markers.length; i++) {
+ 			markers[i].setMap(map);
+ 		}
+ 	}
 
-	function addMarker(feature, timeout) {
+ 	function toggleBounce(marker) {
+ 		if (marker.getAnimation() !== null) {
+ 			marker.setAnimation(null);
+ 			if (marker.timeout) {
+ 				clearTimeout(marker.timeout);
+ 				delete marker.timeout;
+ 			}
+ 		} else {
+ 			marker.setAnimation(GoogleMap.Animation.BOUNCE);
+ 			marker.timeout = setTimeout(function () {
+ 				marker.setAnimation(null);
+ 			}, 3000);
+ 		}
+ 	}
 
-		setTimeout(function () {
-			let marker = new GoogleMap.Marker({
-				position : feature.position,
-				icon     : markerImage,
-				animation: GoogleMap.Animation.DROP,
-				map      : mapView
-			});
+ 	function addMarker(feature, timeout) {
 
-			let infowindow = new GoogleMap.InfoWindow({
-				content: feature.title
-			});
+ 		setTimeout(function () {
+ 			let marker = new GoogleMap.Marker({
+ 				position : feature.position,
+ 				icon     : markerImage,
+ 				animation: GoogleMap.Animation.DROP,
+ 				map      : mapView
+ 			});
 
-			marker.addListener('mouseover', function () {
-				infowindow.open(mapView, marker);
-			});
+ 			let infowindow = new GoogleMap.InfoWindow({
+ 				content: feature.title
+ 			});
 
-			marker.addListener('mouseout', function () {
-				infowindow.close();
-			});
+ 			marker.addListener('mouseover', function () {
+ 				infowindow.open(mapView, marker);
+ 			});
 
-			marker.addListener('click', function () {
-				toggleBounce(marker);
-			});
+ 			marker.addListener('mouseout', function () {
+ 				infowindow.close();
+ 			});
 
-			markers.push(marker);
-		}, timeout);
+ 			marker.addListener('click', function () {
+ 				toggleBounce(marker);
+ 			});
 
-	}
+ 			markers.push(marker);
+ 		}, timeout);
 
-	function setMarkers(result) {
+ 	}
+
+ 	function setMarkers(result) {
 		//empty marker stack
 		setMapOnAll(null);
 		markers = [];
+		$scope.results = [];
 
 		//reset map center
 		mapView.setCenter(new GoogleMap.LatLng(result[0].cords.lat, result[0].cords.lon));
 
-		for (var i = 0; i < result.length; i++) {
-			var business = result[i];
+		for (let i = result.length -1; i > -1; i--) {
+			let business = result[i];
 
-			var _marker = {
+			let _marker = {
 				position: new GoogleMap.LatLng(business.cords.lat, business.cords.lon),
 				title   : business.name,
 				data    : business
 			};
 
 			addMarker(_marker, i * 100);
+
+			$timeout(function() {
+				$scope.results.unshift(business);				
+			},500 * (result.length - (i+1)));
 		}
 	}
 

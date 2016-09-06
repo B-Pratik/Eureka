@@ -20,6 +20,7 @@ module.exports = {
 
 			'angular',
 			'angular-loading-bar',
+			'angular-animate'
 		]
 	},
 	output : {
