@@ -19,8 +19,8 @@ module.exports = {
 			'jquery',
 
 			'angular',
-			'angular-loading-bar',
-			'angular-animate'
+			'angular-loading-bar'/*,
+			'angular-animate'*/
 		]
 	},
 	output : {

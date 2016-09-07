@@ -7,5 +7,5 @@ import 'babel-polyfill';		//pollyfill for latest features
 
 import appController from './controller/app-controller';
 
-angular.module('WhoWhatWhere', ['angular-loading-bar', 'ngAnimate'])
+angular.module('WhoWhatWhere', ['angular-loading-bar'/*, 'ngAnimate'*/])
 	.controller('appController', appController);

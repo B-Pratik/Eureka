@@ -12,6 +12,7 @@ A business search application built on the top of yelp,foursquare and google map
 
 *How to start
 	-run command 'gulp' with optional port value (--port 9000,default is 4000) to satrt the compilation and build the application.
+	-If you got an error ('gulp is not recognized'),you can solve it by -- npm install gulp -g
 	-once compilation is done application will start in browser.
 
 *How to use
