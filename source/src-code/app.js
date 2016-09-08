@@ -6,6 +6,8 @@ import '../assets/index.scss';	//style sheet
 import 'babel-polyfill';		//pollyfill for latest features
 
 import appController from './controller/app-controller';
+import notifyService from './service/notify';
 
-angular.module('WhoWhatWhere', ['angular-loading-bar'/*, 'ngAnimate'*/])
-	.controller('appController', appController);
+angular.module('Eureka', ['angular-loading-bar'/*, 'ngAnimate'*/])
+	.controller('appController', appController)
+	.service('Notifier', notifyService);

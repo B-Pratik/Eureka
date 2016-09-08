@@ -7,7 +7,7 @@ import PS  from 'perfect-scrollbar';
 
 var markerImage = require('../../assets/images/marker.png');
 
-export default function ($scope, $http, $timeout) {
+export default function ($scope, $http, $timeout, Notifier) {
 	'ngInject';
 
 	var GoogleMap, mapView;
@@ -45,14 +45,18 @@ export default function ($scope, $http, $timeout) {
 	}
 
 	function getData(query, cb) {
-		$http.post('/getdata', query, {timeout: 5000}).then(function (resp) {
+		$http.post('/getdata', query, {timeout: 10000}).then(function (resp) {
 			if (resp.data instanceof Array && resp.data.length > 0) {
 				return cb(null, resp.data);
+			} else if (resp.data instanceof Object && resp.data.error) {
+				Notifier.notify('Error', 'Internal error,try again', 'error');
+				return cb(true);
 			} else {
+				Notifier.notify('No results', 'try with differnt query', 'error');
 				return cb(true);
 			}
-		}, function (error) {
-			console.error(error);
+		}, function () {
+			Notifier.notify('Unable to get results', 'try again', 'error');
 			return cb(true);
 		});
 	}
@@ -146,18 +150,21 @@ export default function ($scope, $http, $timeout) {
 	}
 
 	$scope.search = function () {
-		let query = $scope.query = $scope.query.trim(),
-		    location = $scope.location = $scope.location.trim();
+		let query    = $scope.query,
+		    location = $scope.location;
 
 		if (!query || !location) {
+			Notifier.notify('Invalid input', 'please check the queries', 'warn');
 			return;
 		}
 
 		if (location.length === 0 || query.length === 0) {
+			Notifier.notify('Invalid input', 'please check the queries', 'warn');
 			return;
 		}
 
 		if (isSearching) {
+			Notifier.notify('Please wait,', 'looking for results', 'info');
 			return;
 		} else {
 			isSearching = true;
@@ -168,7 +175,7 @@ export default function ($scope, $http, $timeout) {
 		getData({query, location}, function (err, results) {
 			isSearching = false;
 			if (err) {
-				console.error(err);
+				return;
 			} else {
 				$('.back-layer').hide();
 				setMarkers(results);
@@ -186,17 +193,8 @@ export default function ($scope, $http, $timeout) {
 	loadGoogleMapsAPI({key: 'AIzaSyAUhIqtIVo154vh0lg0dFIHh-h5MBjFgUE', timeout: 5000}).then(function (mapInstance) {
 		GoogleMap = mapInstance;
 		initializeMap();
-	}).catch(function (error) {
-		console.error(error);
-	});
-
-	$('.search-bar').hover(function () {
-		$(this).find('.search-text').hide();
-		$(this).find('.show-item').show();
-		$(this).find('.show-item').first().children().focus();
-	}, function () {
-		$(this).find('.show-item').hide();
-		$(this).find('.search-text').show();
+	}).catch(function () {
+		Notifier.notify('Unable to load maps', 'try reloading page', 'error');
 	});
 
 	$('.show-item').keyup(function (event) {

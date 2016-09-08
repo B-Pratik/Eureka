@@ -2,3 +2,4 @@
 node_modules/
 build/*
 !build/favicon.ico
+!build/magic-hat.png

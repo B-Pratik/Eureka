@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="WhoWhatWhere">
+<html lang="en" ng-app="Eureka">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
-  <title>Who-What-Where</title>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <title>Eureka</title>
 </head>
 <body ng-controller="appController">
 <div class="search-bar">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 search-text">Search</div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 search-text">
+    <img ng-src="/magic-hat.png">
+    Eureka
+  </div>
   <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 show-item">
     <input tabindex="1" class="form-control" type="text" placeholder="What?" ng-model="query" autofocus/>
   </div>
@@ -16,11 +21,12 @@
     <input tabindex="2" class="form-control" type="text" placeholder="Where?" ng-model="location"/>
   </div>
   <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-xl-2 show-item">
-    <button tabindex="3" class="btn btn-primary" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+    <button tabindex="3" class="btn btn-primary" ng-click="search()"><span class="glyphicon glyphicon-flash"></span>
     </button>
   </div>
 </div>
 <div class="back-layer"></div>
+<div class="info-box"></div>
 <div id="map-canvas" class="col-xs-12 col-sm-7 col-md-8 col-lg-9 col-xl-9"></div>
 <div class="search-list col-xs-12 col-sm-5 col-md-4 col-lg-3 col-xl-3">
   <div ng-repeat="item in results track by $index" ng-animate="{enter: 'animate-enter'}"

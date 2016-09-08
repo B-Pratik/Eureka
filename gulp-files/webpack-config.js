@@ -15,12 +15,12 @@ module.exports = {
 		app   : path.resolve('source', 'src-code/app.js'),
 		vendor: [
 			'bootstrap/dist/css/bootstrap.min.css',
+			'bootstrap/dist/js/bootstrap.min.js',
 
 			'jquery',
 
 			'angular',
-			'angular-loading-bar'/*,
-			'angular-animate'*/
+			'angular-loading-bar'
 		]
 	},
 	output : {

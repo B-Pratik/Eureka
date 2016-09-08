@@ -55,12 +55,18 @@
   background: rgba(255, 255, 255, 0.4);
   overflow: hidden;
 
+  img {
+    vertical-align: top;
+    margin-top: 1px;
+  }
+
   .show-item {
     margin: 5px 0;
     display: none;
   }
 
   .search-text {
+    display: block;
     font-size: 25px;
     text-align: left;
     color: #555555;
@@ -69,6 +75,14 @@
   &:hover {
     height: auto;
     overflow: auto;
+
+    .show-item {
+      display: block;
+    }
+
+    .search-text {
+      display: none;
+    }
   }
 
   .btn-primary {
@@ -88,4 +102,14 @@
   z-index: 2;
   filter: blur(15px);
   opacity: 0.5;
+}
+
+.info-box {
+  position: absolute;
+  width: auto;
+  height: auto;
+  z-index: 3;
+  left: 10px;
+  top: 50px;
+  font-size: 15px;
 }

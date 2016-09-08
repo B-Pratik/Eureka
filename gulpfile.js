@@ -24,7 +24,7 @@ gulp.task('build', function (cb) {
 });
 
 gulp.task('clean', function () {
-	return del.sync(['./build/**', '!./build', '!./build/favicon.ico']);
+	return del.sync(['./build/**', '!./build', '!./build/favicon.ico', '!./build/magic-hat.png']);
 });
 
 gulp.task('complete', function (cb) {

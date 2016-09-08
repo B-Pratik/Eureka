@@ -1,4 +1,4 @@
-Who-What-Where
+Eureka
 -----------------------------------------
 A business search application built on the top of yelp,foursquare and google maps api.
 
