@@ -145,13 +145,6 @@ export default function ($scope, $http, $timeout) {
 		}
 	}
 
-	loadGoogleMapsAPI({key: 'AIzaSyAUhIqtIVo154vh0lg0dFIHh-h5MBjFgUE', timeout: 5000}).then(function (mapInstance) {
-		GoogleMap = mapInstance;
-		initializeMap();
-	}).catch(function (error) {
-		console.error(error);
-	});
-
 	$scope.search = function () {
 		let query = $scope.query = $scope.query.trim(),
 		    location = $scope.location = $scope.location.trim();
@@ -189,6 +182,13 @@ export default function ($scope, $http, $timeout) {
 			mapView.panTo(markers[index].position);
 		}
 	};
+
+	loadGoogleMapsAPI({key: 'AIzaSyAUhIqtIVo154vh0lg0dFIHh-h5MBjFgUE', timeout: 5000}).then(function (mapInstance) {
+		GoogleMap = mapInstance;
+		initializeMap();
+	}).catch(function (error) {
+		console.error(error);
+	});
 
 	$('.search-bar').hover(function () {
 		$(this).find('.search-text').hide();
