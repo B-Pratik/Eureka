@@ -153,6 +153,11 @@ export default function ($scope, $http, $timeout, Notifier) {
 		let query    = $scope.query,
 		    location = $scope.location;
 
+		if(!GoogleMap){
+			Notifier.notify('Loading content', 'please wait', 'warn');
+			return;
+		}
+
 		if (!query || !location) {
 			Notifier.notify('Invalid input', 'please check the queries', 'warn');
 			return;

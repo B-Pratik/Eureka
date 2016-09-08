@@ -6,7 +6,7 @@ export default function Notifier() {
 
 	this.notify = function (head, message, type) {
 		let alertClass = type === 'warn' ? 'alert-warning' : type === 'error' ? 'alert-danger' : 'alert-info';
-		var alert      = '<div class="alert ' + alertClass + ' alert-dismissible fade in" role="alert">' +
+		let alert      = '<div class="alert ' + alertClass + ' alert-dismissible fade in" role="alert">' +
 			'<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
 			'<span aria-hidden="true">&times;</span>' +
 			'</button>' +
@@ -19,6 +19,6 @@ export default function Notifier() {
 			if (alerts) {
 				alerts.first().alert('close');
 			}
-		}, 3000);
+		}, 4500);
 	};
 }

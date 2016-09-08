@@ -8,6 +8,6 @@ import 'babel-polyfill';		//pollyfill for latest features
 import appController from './controller/app-controller';
 import notifyService from './service/notify';
 
-angular.module('Eureka', ['angular-loading-bar'/*, 'ngAnimate'*/])
+angular.module('Eureka', ['angular-loading-bar'])
 	.controller('appController', appController)
 	.service('Notifier', notifyService);
