@@ -21,14 +21,11 @@
 
   .media {
     color: #f5f5f5;
+    cursor: pointer;
 
     small {
       color: #f6f96d;
     }
-  }
-
-  .media {
-    cursor: pointer;
   }
 
   .media-body {
@@ -39,13 +36,16 @@
     margin-top: 5px;
   }
 
+  .top-mar-center {
+    margin: 10px auto;
+  }
+
   a:hover {
     color: #efc1e9;
   }
 }
 
 .search-bar {
-  background-color: #ffffff;
   position: absolute;
   z-index: 3;
   height: 35px;

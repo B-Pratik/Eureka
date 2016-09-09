@@ -44,19 +44,29 @@ export default function ($scope, $http, $timeout, Notifier) {
 		});
 	}
 
+	function showFirstInput() {
+		let toFocus = $('.show-item input').first();
+		if (toFocus) {
+			toFocus.focus();
+		}
+	}
+
 	function getData(query, cb) {
 		$http.post('/getdata', query, {timeout: 10000}).then(function (resp) {
 			if (resp.data instanceof Array && resp.data.length > 0) {
 				return cb(null, resp.data);
 			} else if (resp.data instanceof Object && resp.data.error) {
 				Notifier.notify('Error', 'Internal error,try again', 'error');
+				showFirstInput();
 				return cb(true);
 			} else {
 				Notifier.notify('No results', 'try with differnt query', 'error');
+				showFirstInput();
 				return cb(true);
 			}
 		}, function () {
 			Notifier.notify('Unable to get results', 'try again', 'error');
+			showFirstInput();
 			return cb(true);
 		});
 	}
@@ -153,7 +163,7 @@ export default function ($scope, $http, $timeout, Notifier) {
 		let query    = $scope.query,
 		    location = $scope.location;
 
-		if(!GoogleMap){
+		if (!GoogleMap) {
 			Notifier.notify('Loading content', 'please wait', 'warn');
 			return;
 		}
@@ -179,10 +189,9 @@ export default function ($scope, $http, $timeout, Notifier) {
 
 		getData({query, location}, function (err, results) {
 			isSearching = false;
-			if (err) {
-				return;
-			} else {
+			if (!err) {
 				$('.back-layer').hide();
+				$('.search-list').css({'padding-bottom': ($('body').height() - 35) + 'px'});
 				setMarkers(results);
 			}
 		});
