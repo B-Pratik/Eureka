@@ -11,14 +11,20 @@ A business search application built on the top of yelp,foursquare and google map
 		to install all the dependeicies.
 
 *How to start
-	-run command 'gulp' with optional port value (--port 9000,default is 4000) to satrt the compilation and build the application.
+	-run command 'gulp' with optional port value (--port 9000,default is 4000) to start the compilation and build the application.
 	-If you got an error ('gulp is not recognized'),you can solve it by -- npm install gulp -g
 	-once compilation is done application will start in browser.
 
 *How to use
-	-enter your query to search for business and location where you want to search;
-	-you can use nearme feature to search near by to you.(you need modern browser for this)
+    -As application supports mobile platform also it is designed to use full available space.
+        Map and search list occupies most of the space making the search bar appear on demand basis.
+    -To fire a search hover or touch (touch devices) the title bar.
+    -The query menu will appear,from there you can search for whatever business you want to search for.
+        What?- what do you want to search, food,drink,tailor etc.
+        Where?- Name of the city where you want to get these details.
 	-you will get results pinned on map,on clicking on them you will get details of the business.
+	-you can click on map marker to get its details on list or click on list to locate the marker.
+	-If available the list item can redirect you to the detailed page on clicking the title of entry.
 
 *Platforms
 	-Application is designed to be responsive,supports mobile devices also.

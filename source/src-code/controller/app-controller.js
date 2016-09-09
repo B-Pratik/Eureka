@@ -159,9 +159,42 @@ export default function ($scope, $http, $timeout, Notifier) {
 		}
 	}
 
-	$scope.search = function () {
-		let query    = $scope.query,
-		    location = $scope.location;
+	function inputListener() {
+		$('.show-item').keyup(function (event) {
+			if (event.keyCode === 13) {
+				var textboxes        = $('.show-item');
+				var currentBoxNumber = textboxes.index(this);
+
+				if (textboxes[currentBoxNumber + 1] !== null) {
+					var nextBox = $(textboxes[currentBoxNumber + 1]).children();
+					nextBox.focus();
+					nextBox.click();
+				}
+
+				event.preventDefault();
+				return false;
+			}
+		});
+
+		$('.show-item button').on('click', search);
+	}
+
+	function resetSearchBar() {
+		let searchBar = $('.search-bar');
+		searchBar.remove();
+		$('body').append(searchBar);
+
+		setTimeout(inputListener, 100);
+	}
+
+	function search() {
+		let inputs = $('.show-item input');
+
+		let query    = inputs.get(0).value,
+		    location = inputs.get(1).value;
+
+		resetSearchBar();//reattach element to deal with sticky hover
+
 
 		if (!GoogleMap) {
 			Notifier.notify('Loading content', 'please wait', 'warn');
@@ -195,7 +228,7 @@ export default function ($scope, $http, $timeout, Notifier) {
 				setMarkers(results);
 			}
 		});
-	};
+	}
 
 	$scope.showMarker = function (index) {
 		if (markers[index]) {
@@ -211,19 +244,5 @@ export default function ($scope, $http, $timeout, Notifier) {
 		Notifier.notify('Unable to load maps', 'try reloading page', 'error');
 	});
 
-	$('.show-item').keyup(function (event) {
-		if (event.keyCode === 13) {
-			var textboxes        = $('.show-item');
-			var currentBoxNumber = textboxes.index(this);
-
-			if (textboxes[currentBoxNumber + 1] !== null) {
-				var nextBox = $(textboxes[currentBoxNumber + 1]).children();
-				nextBox.focus();
-				nextBox.click();
-			}
-
-			event.preventDefault();
-			return false;
-		}
-	});
+	inputListener();
 }

@@ -15,17 +15,26 @@
     Eureka
   </div>
   <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 show-item">
-    <input tabindex="1" class="form-control" type="text" placeholder="What?" ng-model="query" autofocus/>
+    <input tabindex="1" class="form-control" type="text" placeholder="What?" autofocus/>
   </div>
   <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 show-item">
-    <input tabindex="2" class="form-control" type="text" placeholder="Where?" ng-model="location"/>
+    <input tabindex="2" class="form-control" type="text" placeholder="Where?"/>
   </div>
   <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-xl-2 show-item">
-    <button tabindex="3" class="btn btn-primary" ng-click="search()"><span class="glyphicon glyphicon-flash"></span>
+    <button tabindex="3" class="btn btn-primary"><span class="glyphicon glyphicon-flash"></span>
     </button>
   </div>
 </div>
-<div class="back-layer"></div>
+<div class="back-layer">
+  <div class="content">
+    <div class="title">
+      Eureka
+    </div>
+    <div class="spinner"></div>
+  </div>
+</div>
+
+
 <div class="info-box"></div>
 <div id="map-canvas" class="col-xs-12 col-sm-7 col-md-8 col-lg-9 col-xl-9"></div>
 <div class="search-list col-xs-12 col-sm-5 col-md-4 col-lg-3 col-xl-3">
