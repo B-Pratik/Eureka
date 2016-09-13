@@ -97,6 +97,7 @@ export default function ($scope, $http, $timeout, Notifier) {
 		$('.search-list').animate({
 			scrollTop: top
 		}, 1000);
+		container.top = 0;
 		PS.update(container);
 	}
 
