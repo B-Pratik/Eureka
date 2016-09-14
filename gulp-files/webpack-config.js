@@ -88,7 +88,7 @@ module.exports = {
 		new webpack.optimize.UglifyJsPlugin(),
 		new HtmlWebpackPlugin({
 			template: path.resolve('source', 'src-code/index.html'),
-			inject  : 'head'
+			inject  : 'body'
 		}),
 		new webpack.optimize.CommonsChunkPlugin('vendor', 'js/vendor-[hash].js'),
 		new ExtractTextPlugin('css/[name]-[id]-[contenthash].css')
