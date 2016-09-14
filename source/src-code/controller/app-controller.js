@@ -191,8 +191,8 @@ export default function ($scope, $http, $timeout, Notifier) {
 	function search() {
 		let inputs = $('.show-item input');
 
-		let query    = inputs.get(0).value,
-		    location = inputs.get(1).value;
+		let query    = inputs.get(0).value.trim() || 'business',
+		    location = inputs.get(1).value.trim();
 
 		resetSearchBar();//reattach element to deal with sticky hover
 
@@ -202,13 +202,13 @@ export default function ($scope, $http, $timeout, Notifier) {
 			return;
 		}
 
-		if (!query || !location) {
-			Notifier.notify('Invalid input', 'please check the queries', 'warn');
+		if (!location) {
+			Notifier.notify('Invalid input', 'please provide location', 'warn');
 			return;
 		}
 
-		if (location.length === 0 || query.length === 0) {
-			Notifier.notify('Invalid input', 'please check the queries', 'warn');
+		if (location.length === 0) {
+			Notifier.notify('Invalid input', 'please provide location', 'warn');
 			return;
 		}
 

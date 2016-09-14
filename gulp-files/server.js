@@ -7,7 +7,7 @@ var express     = require('express');
 var serveStatic = require('serve-static');
 var Yelp        = require('yelp');
 var yelpParse   = require('./yelp-response-parse');
-var Dodge       = require('dodge');
+var fourSquare  = require('./four-square-api');
 /*Merge function to combine data from both the servers*/
 var merge      = require('./merge-results');
 var fourParse  = require('./four-square-response-parse');
@@ -27,12 +27,6 @@ var yelp = new Yelp({
 	token_secret   : 'uF-cSlKj9usvzCIjSeVzwR2OcS8'
 });
 
-/*Foursquare middleware*/
-var fourSquare = new Dodge({
-	clientId    : 'QJSCCNNQJ54DFMUNL2MPZ555MV02GA2OLKP3WG0AUNXRU042',
-	clientSecret: 'LAXYPDM2R313FVQALAVJMI12KFTULIJX12RY3EHNOTLJBNRJ'
-});
-
 function getFourSquare(term, location, isCoordinates, callBack) {
 	var input   = {};
 	input.query = term;
@@ -44,7 +38,7 @@ function getFourSquare(term, location, isCoordinates, callBack) {
 		input.near = location;
 	}
 
-	fourSquare.venues.search(input, function (err, venues) {
+	fourSquare(input, function (err, venues) {
 		if (err) {
 			return callBack(err);
 		}
@@ -88,6 +82,9 @@ function getData(term, location, isCoordinates, callBack) {
 			if (firstData) {
 				return callBack(null, merge(data, firstData));
 			} else {
+				if (gotError) {
+					return callBack(null, merge(data, []));
+				}
 				firstData = data;
 			}
 		}
@@ -105,6 +102,9 @@ function getData(term, location, isCoordinates, callBack) {
 			if (firstData) {
 				return callBack(null, merge(firstData, data));
 			} else {
+				if (gotError) {
+					return callBack(null, merge([], data));
+				}
 				firstData = data;
 			}
 		}

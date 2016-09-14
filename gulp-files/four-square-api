@@ -1,0 +1,58 @@
+const https       = require('https');
+const querystring = require('querystring');
+
+const _id     = 'QJSCCNNQJ54DFMUNL2MPZ555MV02GA2OLKP3WG0AUNXRU042',
+      _secret = 'LAXYPDM2R313FVQALAVJMI12KFTULIJX12RY3EHNOTLJBNRJ';
+
+var options = {
+	hostname: 'api.foursquare.com',
+	port    : 443,
+	method  : 'GET'
+};
+
+module.exports = function (input, callBack) {
+	var url = querystring.stringify({
+		near         : input.near,
+		query        : input.query,
+		client_id    : _id,
+		client_secret: _secret,
+		limit        : 15,
+		v            : 20160217
+	});
+
+	options.path = '/v2/venues/explore?' + url;
+
+	var request = https.request(options, function (res) {
+		var resp = '';
+
+		res.on('end', function () {
+			var business;
+
+			try {
+				business = JSON.parse(resp);
+			} catch (e) {
+				return callBack(true);
+			}
+
+			if (business && business.response && business.response.groups &&
+				business.response.groups instanceof Array && business.response.groups.length > 0 &&
+				business.response.groups[0].items && business.response.groups[0].items instanceof Array) {
+				callBack(null, business.response.groups[0].items);
+			} else {
+				callBack(true);
+			}
+		});
+
+		res.on('data', function (data) {
+			resp += data;
+		});
+
+	});
+
+	request.end();
+
+	request.on('error', function (e) {
+		return callBack(true);
+	});
+
+};

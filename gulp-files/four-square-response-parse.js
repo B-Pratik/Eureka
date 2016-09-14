@@ -4,8 +4,9 @@
 
 module.exports = function (data) {
 	var parsed = [];
-	for (var ite of data) {
+	for (var iterator of data) {
 		var entry = {};
+		var ite   = iterator.venue;
 		if (ite.name) {
 			entry.name = ite.name;
 		} else {
@@ -21,6 +22,11 @@ module.exports = function (data) {
 
 		if (ite.categories instanceof Array && ite.categories.length > 0) {
 			entry.categories = [];
+
+			if (ite.categories[0].icon && ite.categories[0].icon.prefix && ite.categories[0].icon.suffix) {
+				entry.photo = ite.categories[0].icon.prefix + '64' + ite.categories[0].icon.suffix;
+			}
+
 			ite.categories.forEach(function (e) {
 				if (e.name) {
 					entry.categories.push(e.name);
@@ -58,7 +64,9 @@ module.exports = function (data) {
 		}
 
 
-		entry.photo = 'http://www.megaicons.net/static/img/icons_sizes/8/60/256/science-business-icon.png';
+		if (!entry.photo) {
+			entry.photo = 'http://www.megaicons.net/static/img/icons_sizes/8/60/256/science-business-icon.png';
+		}
 
 
 		if (ite.url) {
@@ -67,8 +75,8 @@ module.exports = function (data) {
 			entry.url = 'NA';
 		}
 
-		if (ite.description) {
-			entry.description = ite.description;
+		if (iterator.tips instanceof Array && iterator.tips.length > 0 && iterator.tips[0].text) {
+			entry.description = iterator.tips[0].text;
 		} else {
 			entry.description = 'NA';
 		}
