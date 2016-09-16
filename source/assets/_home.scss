@@ -39,6 +39,12 @@
     margin: 10px auto;
   }
 
+  .highlighted {
+    outline: none;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+  }
+
   a:hover {
     color: #efc1e9;
   }
