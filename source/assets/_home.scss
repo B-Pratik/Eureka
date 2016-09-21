@@ -18,11 +18,13 @@
   }
 
   .media {
-    color: #f5f5f5;
+    color: #777777;
     cursor: pointer;
+    background-color: white;
+    border-radius: 5px;
 
     small {
-      color: #f6f96d;
+      color: #000000;
     }
   }
 
@@ -40,12 +42,14 @@
 
   .highlighted {
     outline: none;
-    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-    border: 1px solid rgba(81, 203, 238, 1);
+    box-shadow: 0 0 5px rgb(238, 134, 34);
   }
 
-  a:hover {
-    color: #efc1e9;
+  a {
+    color: #f96e2b;
+    &:hover {
+      color: #38f92b;
+    }
   }
 }
 
