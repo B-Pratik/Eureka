@@ -41,7 +41,7 @@
   <div ng-repeat="item in results track by $index" ng-animate="{enter: 'animate-enter'}"
        class="media entry-{{item.class}}" ng-click="showMarker(item.class)" ng-class="{'last-item':$last}">
     <a class="pull-left" href="#">
-      <img class="media-object dp img-circle" ng-src="{{ item.photo }}" height="100px" width="100px">
+      <img class="media-object dp" ng-src="{{ item.photo }}" height="100px" width="100px">
     </a>
     <div class="media-body">
       <h4 class="media-heading">
