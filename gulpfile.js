@@ -11,7 +11,7 @@ var del         = require('del');
 var runSequence = require('run-sequence');
 var webpack     = require('webpack');
 
-var URL = {host: argv.host || 'localhost', port: argv.port || 4000};
+var URL = {host: argv.host || 'localhost', port: argv.port || process.env.PORT || 4000};
 
 gulp.task('build', function (cb) {
 	var compiler = webpack(require('./gulp-files/webpack-config.js'));
